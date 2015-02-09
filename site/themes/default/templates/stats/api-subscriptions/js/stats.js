@@ -87,7 +87,7 @@ require(["dojo/dom", "dojo/domReady!"], function (dom) {
                             {
                                 startOfWeek: 'monday',
                                 separator : ' to ',
-                                format: 'DD-MM-YYYY HH:mm',
+                                format: 'YYYY-MM-DD HH:mm',
                                 autoClose: false,
                                 time: {
                                     enabled: true
@@ -110,6 +110,13 @@ require(["dojo/dom", "dojo/domReady!"], function (dom) {
                             .bind('datepicker-close',function()
                             {
                             });
+
+                            //set default date
+                            var today = convertTimeString(currentDay);
+                            var fromday =convertTimeString(firstAccessDay);
+                            $('#date-range').data('dateRangePicker').setDateRange(fromday,today);
+                            drawSubscriberCountByAPIs(fromday,today);
+
 
                             var width = $("#rangeSliderWrapper").width();
                             $("#rangeSliderWrapper").affix();

@@ -86,7 +86,7 @@ require(["dojo/dom", "dojo/domReady!"], function (dom) {
                             {
                                 startOfWeek: 'monday',
                                 separator : ' to ',
-                                format: 'DD-MM-YYYY HH:mm',
+                                format: 'YYYY-MM-DD HH:mm',
                                 autoClose: false,
                                 time: {
                                     enabled: true
@@ -110,6 +110,11 @@ require(["dojo/dom", "dojo/domReady!"], function (dom) {
                             .bind('datepicker-close',function()
                             {
                             });
+
+                            var today = convertTimeString(currentDay);
+                            var fromday =convertTimeString(firstAccessDay);
+                            $('#date-range').data('dateRangePicker').setDateRange(fromday,today);
+                            drawProviderAPIVersionUserLastAccess(fromday,today);
 
                             var width = $("#rangeSliderWrapper").width();
                             $("#rangeSliderWrapper").affix();
@@ -178,7 +183,9 @@ var drawProviderAPIVersionUserLastAccess = function(from,to){
                     $('#tableContainer').append($dataTable);
                     $('#tableContainer').show();
                     //$dataTable.tablesorter();
-                    $('#lastAccessTable').DataTable();
+                    $('#lastAccessTable').dataTable({
+                         "order": [[ 3, "desc" ]]
+                    });
                 }
 
             } else {
